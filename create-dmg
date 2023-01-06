@@ -94,7 +94,7 @@ Options:
   --app-drop-link <x> <y>
       make a drop link to Applications, at location x,y
   --blank-app-drop-link <x> <y>
-      make a drop link to Applications, at location x,y, with no visable name
+      make a drop link to Applications, with no visable name, at location x,y
   --ql-drop-link <x> <y>
       make a drop link to user QuickLook install dir, at location x,y
   --eula <eula_file>
