@@ -35,8 +35,9 @@ on run (volumeName)
 			-- Hiding
 			HIDING_CLAUSE
 
-			-- Application and QL Link Clauses
+			-- (Blank) Application and QL Link Clauses
 			APPLICATION_CLAUSE
+			BLANK_APPLICATION_CLAUSE
 			QL_CLAUSE
 			close
 			open

@@ -93,6 +93,8 @@ Options:
       hide the extension of file
   --app-drop-link <x> <y>
       make a drop link to Applications, at location x,y
+  --blank-app-drop-link <x> <y>
+      make a drop link to Applications, at location x,y, with no visable name
   --ql-drop-link <x> <y>
       make a drop link to user QuickLook install dir, at location x,y
   --eula <eula_file>
@@ -176,6 +178,11 @@ while [[ "${1:0:1}" = "-" ]]; do
 		--app-drop-link)
 			APPLICATION_LINK=$2
 			APPLICATION_CLAUSE="set position of item \"Applications\" to {$2, $3}
+			"
+			shift; shift; shift;;
+		--blank-app-drop-link)
+			BLANK_APPLICATION_LINK=$2
+			BLANK_APPLICATION_CLAUSE="set position of item \" \" to {$2, $3}
 			"
 			shift; shift; shift;;
 		--eula)
@@ -386,6 +393,12 @@ if [[ -n "$APPLICATION_LINK" ]]; then
 	ln -s /Applications "$MOUNT_DIR/Applications"
 fi
 
+if [[ -n "$BLANK_APPLICATION_LINK" ]]; then
+	echo "Making link to Blank Applications dir..."
+	echo $MOUNT_DIR
+	ln -s /Applications "$MOUNT_DIR/ "
+fi
+
 if [[ -n "$QL_LINK" ]]; then
 	echo "Making link to QuickLook install dir..."
 	echo $MOUNT_DIR
@@ -419,6 +432,7 @@ else
 					-e "s/ICON_SIZE/$ICON_SIZE/g" -e "s/TEXT_SIZE/$TEXT_SIZE/g" \
 			| perl -pe "s/POSITION_CLAUSE/$POSITION_CLAUSE/g" \
 			| perl -pe "s/QL_CLAUSE/$QL_CLAUSE/g" \
+			| perl -pe "s/BLANK_APPLICATION_CLAUSE/$BLANK_APPLICATION_CLAUSE/g" \
 			| perl -pe "s/APPLICATION_CLAUSE/$APPLICATION_CLAUSE/g" \
 			| perl -pe "s/HIDING_CLAUSE/$HIDING_CLAUSE/" \
 			> "$APPLESCRIPT_FILE"
